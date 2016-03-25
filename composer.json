@@ -1,0 +1,28 @@
+{
+    "name": "goodspb/phpQiniuAdmin",
+    "description": "A qiniu web admin",
+    "keywords": [
+        "qiniu"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "goodspb",
+            "homepage": "http://www.goodspb.net"
+        }
+    ],
+    "require": {
+        "qiniu/php-sdk" : "^7.0.7",
+        "nikic/fast-route": "^0.7.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-0": {
+        },
+        "classmap": [
+            "app"
+        ]
+    },
+    "minimum-stability": "dev"
+}

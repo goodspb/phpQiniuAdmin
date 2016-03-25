@@ -1,0 +1,4 @@
+# Config
+/.idea
+/vendor
+/config/production/*
