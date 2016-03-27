@@ -6,6 +6,8 @@ version_compare(PHP_VERSION, '5.5', '<') and die('PHP version must above 5.5.');
 
 define("ROOT_PATH", dirname(__DIR__));
 
+date_default_timezone_set("UTC");
+
 session_start();
 
 //load composer autoload
