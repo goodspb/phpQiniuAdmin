@@ -3,6 +3,7 @@
 return array(
     [['GET', 'POST'], '/', '/'],
     ['GET', '/login', 'login'],
+    ['GET', '/login/error/{reason}', 'login'],
     ['POST', '/login', 'login@do'],
     ['/index', 'index'],
     ['/bucket/{do}', 'index@bucket'],

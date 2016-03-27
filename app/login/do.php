@@ -1,12 +1,7 @@
 <?php
 
-$adminUsername = fnGet($config,'admin_username');
-$adminPassword = fnGet($config,'admin_password');
-
-if ($adminUsername === null || $adminUsername != fnGet($_POST, 'username')
-    || $adminPassword === null || $adminPassword != fnGet($_POST, 'password')
-) {
-    redirect('/login');
+if ($adminUsername != fnGet($_POST, 'username') || $adminPassword != fnGet($_POST, 'password')) {
+    redirect('/login/error/账号密码错误');
 }
 
 session('username', $adminUsername);

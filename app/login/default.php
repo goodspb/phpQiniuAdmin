@@ -7,6 +7,11 @@
                     <h3 class="panel-title">Please Sign In</h3>
                 </div>
                 <div class="panel-body">
+                    <?php
+                        if (($reason = fnGet($vars,'reason')) != null ) {
+                            echo "<div class=\"alert alert-danger\">".$reason."</div>";
+                        }
+                    ?>
                     <form role="form" action="/login" method="POST">
                         <fieldset>
                             <div class="form-group">

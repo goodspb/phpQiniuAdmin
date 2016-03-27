@@ -75,6 +75,7 @@ switch ($routeInfo[0]) {
             exit('method not found');
         }
         require ROOT_PATH.'/qiniu.php';
+        require ROOT_PATH.'/permission.php';
         require $handlerPath;
         break;
 }
