@@ -11,7 +11,6 @@ An Qiniu Web Admin GUI make by php.
 2. 在 `config` 文件下 新建 `production` 文件夹, 将 `config/config.php` 复制到 `config/production/config.php`
 3. 修改 `config/production/config.php` 的配置
 4. 配置服务器, nginx 配置如下:
-
 ```
 server {
     listen 80;
@@ -31,5 +30,4 @@ server {
     }
 }
 ```
-
 5. 运行 , enjoy.
