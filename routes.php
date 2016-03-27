@@ -8,6 +8,8 @@ return array(
     ['/bucket/{do}', 'index@bucket'],
     ['/bucket/{do}/{id}', 'index@bucket'],
     ['/files', 'files'],
+    ['/files/refresh', 'files@refresh'],
+    ['/files/refresh/{marker}', 'files@refresh'],
     ['/files/{marker}', 'files'],
     ['/files/show/{key}', 'files@show'],
     ['/files/action/{do}', 'files@action'],

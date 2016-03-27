@@ -10,7 +10,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         七牛资源列表
-                        <button class="btn-danger pull-right" onclick="location.href='/files/action/all_refresh';">刷新全部</button>
+                        <button class="btn-danger pull-right" onclick="location.href='/files/refresh';">刷新全部</button>
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
