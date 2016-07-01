@@ -6,7 +6,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12" style="margin-top: 10px">
-                <form class="input-group custom-search-form" action="" method="get">
+                <form class="input-group custom-search-form" action="/files" method="get">
                     <input  type="text" name="prefix" value="<?php echo fnGet($_GET, 'prefix', ''); ?>" class="form-control" placeholder="请输入前缀...">
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="submit">
