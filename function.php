@@ -1,6 +1,42 @@
 <?php
 
 /**
+ * @param $host
+ * @param $uri
+ * @return string
+ */
+function getRealUrl($host, $uri)
+{
+    return rtrim($host, '/').'/'.rtrim($uri, '/');
+}
+
+/**
+ * @param string $part
+ * @return mixed|string
+ */
+function getDefaultBucket($part = 'name')
+{
+    $bucketId = cookie('default_bucket');
+    $buckets = getBuckets();
+    $bucket = $buckets[$bucketId];
+    return isset($bucket[$part]) ? $bucket[$part] : $bucket;
+}
+
+/**
+ * @param null $key
+ * @return mixed|null
+ */
+function getBuckets($key = null)
+{
+    $buckets = cookie('buckets');
+    if (null === $buckets) {
+        return [];
+    }
+    $buckets = unserialize($buckets);
+    return is_null($key) ? $buckets : (isset($buckets[$key]) ? $buckets[$key] : null);
+}
+
+/**
  * send http status
  * @param integer $code status code
  * @return void

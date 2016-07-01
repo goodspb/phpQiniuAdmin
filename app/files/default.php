@@ -4,6 +4,18 @@
     <?php include ROOT_PATH.'/app/public/nav.php'; ?>
 
     <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12" style="margin-top: 10px">
+                <form class="input-group custom-search-form" action="/files" method="get">
+                    <input  type="text" name="prefix" value="<?php echo fnGet($_GET, 'prefix', ''); ?>" class="form-control" placeholder="请输入前缀...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </form>
+            </div>
+        </div>
         <!-- /.row -->
         <div class="row">
             <div class="col-lg-12" style="margin-top: 10px">
@@ -19,9 +31,9 @@
                             use Qiniu\Storage\BucketManager;
                             $bucketMgr = new BucketManager($qiniuAuth);
                             // 要列取的空间名称
-                            $bucket = cookie('default_bucket');
+                            $bucket = getDefaultBucket();
                             // 要列取文件的公共前缀
-                            $prefix = '';
+                            $prefix = fnGet($_REQUEST, 'prefix', '');
                             $marker = ($newMarker = fnGet($vars,'marker')) !== null ? $newMarker :  '';
                             $limit = 20;
 
@@ -47,7 +59,7 @@
                                         foreach($iterms as $key => $value): ?>
                                     <tr class="odd gradeA">
                                         <td><?=$key+1?></td>
-                                        <td><?=$value['key']?></td>
+                                        <td><a target="_blank" href="<?=getRealUrl(getDefaultBucket('url'), $value['key'])?>"><?=$value['key']?></a></td>
                                         <td><?=$value['hash']?></td>
                                         <td><?=$value['fsize']?></td>
                                         <td class="center"><?=$value['mimeType']?></td>
