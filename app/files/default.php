@@ -31,7 +31,7 @@
                             use Qiniu\Storage\BucketManager;
                             $bucketMgr = new BucketManager($qiniuAuth);
                             // 要列取的空间名称
-                            $bucket = cookie('default_bucket');
+                            $bucket = getDefaultBucket();
                             // 要列取文件的公共前缀
                             $prefix = fnGet($_REQUEST, 'prefix', '');
                             $marker = ($newMarker = fnGet($vars,'marker')) !== null ? $newMarker :  '';
@@ -59,7 +59,7 @@
                                         foreach($iterms as $key => $value): ?>
                                     <tr class="odd gradeA">
                                         <td><?=$key+1?></td>
-                                        <td><?=$value['key']?></td>
+                                        <td><a target="_blank" href="<?=getRealUrl(getDefaultBucket('url'), $value['key'])?>"><?=$value['key']?></a></td>
                                         <td><?=$value['hash']?></td>
                                         <td><?=$value['fsize']?></td>
                                         <td class="center"><?=$value['mimeType']?></td>

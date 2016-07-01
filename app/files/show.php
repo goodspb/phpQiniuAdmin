@@ -19,7 +19,7 @@
                             use Qiniu\Storage\BucketManager;
                             $bucketMgr = new BucketManager($qiniuAuth);
                             // 要列取的空间名称
-                            $bucket = cookie('default_bucket');
+                            $bucket = getDefaultBucket();
 
                             //获取文件的状态信息
                             list($ret, $err) = $bucketMgr->stat($bucket, $key);

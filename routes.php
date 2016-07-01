@@ -6,6 +6,7 @@ return array(
     ['GET', '/login/error/{reason}', 'login'],
     ['POST', '/login', 'login@do'],
     ['/index', 'index'],
+    ['/index/{key}', 'index'],
     ['/bucket/{do}', 'index@bucket'],
     ['/bucket/{do}/{id}', 'index@bucket'],
     ['/files', 'files'],
