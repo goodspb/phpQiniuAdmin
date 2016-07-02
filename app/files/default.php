@@ -16,28 +16,31 @@
                 </form>
             </div>
         </div>
+        <?php
+            use Qiniu\Storage\BucketManager;
+            $bucketMgr = new BucketManager($qiniuAuth);
+            // 要列取的空间名称
+            $bucket = getDefaultBucket();
+            $bucketName = $bucket['name'];
+        ?>
         <!-- /.row -->
         <div class="row">
             <div class="col-lg-12" style="margin-top: 10px">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        七牛资源列表
+                        <?=$bucket['name']?> 资源列表
                         <button class="btn-danger pull-right" onclick="location.href='/files/refresh';">刷新全部</button>
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         <div class="dataTable_wrapper">
                             <?php
-                            use Qiniu\Storage\BucketManager;
-                            $bucketMgr = new BucketManager($qiniuAuth);
-                            // 要列取的空间名称
-                            $bucket = getDefaultBucket();
                             // 要列取文件的公共前缀
                             $prefix = fnGet($_REQUEST, 'prefix', '');
                             $marker = ($newMarker = fnGet($vars,'marker')) !== null ? $newMarker :  '';
                             $limit = 20;
 
-                            list($iterms, $marker, $err) = $bucketMgr->listFiles($bucket, $prefix, $marker, $limit);
+                            list($iterms, $marker, $err) = $bucketMgr->listFiles($bucketName, $prefix, $marker, $limit);
                             if ($err !== null) {
                                 echo "<div class=\"alert alert-danger\">".$err->message()."</div>";
                             } else {
@@ -59,7 +62,7 @@
                                         foreach($iterms as $key => $value): ?>
                                     <tr class="odd gradeA">
                                         <td><?=$key+1?></td>
-                                        <td><a target="_blank" href="<?=getRealUrl(getDefaultBucket('url'), $value['key'])?>"><?=$value['key']?></a></td>
+                                        <td><a target="_blank" href="<?=getRealUrl($bucket['url'], $value['key'])?>"><?=$value['key']?></a></td>
                                         <td><?=$value['hash']?></td>
                                         <td><?=$value['fsize']?></td>
                                         <td class="center"><?=$value['mimeType']?></td>

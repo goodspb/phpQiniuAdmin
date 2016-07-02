@@ -19,12 +19,12 @@
                             use Qiniu\Storage\BucketManager;
                             $bucketMgr = new BucketManager($qiniuAuth);
                             // 要列取的空间名称
-                            $bucket = getDefaultBucket();
+                            $bucket = getDefaultBucket('name');
 
                             //获取文件的状态信息
                             list($ret, $err) = $bucketMgr->stat($bucket, $key);
                             if ($err !== null) {
-                                var_dump($err);
+                                echo "<div class=\"alert alert-danger\">".$err->message()."</div>";
                             } else {
                             ?>
                                 <table class="table table-bordered table-hover">

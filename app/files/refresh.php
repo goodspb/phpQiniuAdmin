@@ -3,7 +3,7 @@ include  ROOT_PATH.'/app/public/header.php';
 set_time_limit(1000);
 use Qiniu\Storage\BucketManager;
 $bucketMgr = new BucketManager($qiniuAuth);
-$bucket = getDefaultBucket();
+$bucket = getDefaultBucket('name');
 $prefix = '';
 $marker = ($varMarker = fnGet($vars,'marker')) == null ? '' : $varMarker;
 ?>

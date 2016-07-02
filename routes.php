@@ -14,6 +14,7 @@ return array(
     ['/key/do/{type}', 'key@do'],
     ['/key/do/{type}/{id}', 'key@do'],
     ['/files', 'files'],
+    ['/files/id/{id}', 'files@setDefault'],
     ['/files/refresh', 'files@refresh'],
     ['/files/refresh/{marker}', 'files@refresh'],
     ['/files/{marker}', 'files'],

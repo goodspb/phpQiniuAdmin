@@ -5,7 +5,7 @@ $bucketMgr = new BucketManager($qiniuAuth);
 
 $do = fnGet($vars, 'do');
 $key = base64_decode(fnGet($vars, 'key'));
-$bucket = getDefaultBucket();
+$bucket = getDefaultBucket('name');
 
 //删除单个
 if ($do == 'del') {
