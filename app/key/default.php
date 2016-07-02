@@ -7,22 +7,22 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">仓库管理</h1>
+                <h1 class="page-header">密钥管理</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        仓库列表
+                        密钥列表
                     </div>
                     <!-- /.panel-heading -->
                     <?php
-                        $buckets = cookie('buckets');
-                        $buckets = $buckets == null ? array() : $buckets;
-                        $defaultBucketId = cookie('default_bucket');
+                        $keys = cookie('keys');
+                        $keys = $keys == null ? array() : $keys;
+                        $defaultKeyId = cookie('default_key');
                     ?>
                     <div class="panel-body">
                         <div class="table-responsive">
@@ -30,26 +30,28 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>仓库名</th>
-                                    <th>仓库URL</th>
+                                    <th>名称</th>
+                                    <th>AccessKey</th>
+                                    <th>SecretKey</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php if (empty($buckets)): ?>
+                                <?php if (empty($keys)): ?>
                                     <tr>
-                                        <td colspan="4">暂无</td>
+                                        <td colspan="5">暂无</td>
                                     </tr>
                                 <?php else: ?>
-                                    <?php foreach ($buckets as $key => $bucket): ?>
+                                    <?php foreach ($keys as $id => $key): ?>
                                         <tr>
-                                            <td><?=$key+1?></td>
-                                            <td><?=$bucket['name']?><?php if ($defaultBucketId == $key) { echo ' [默认]'; } ?></td>
-                                            <td><?=$bucket['url']?></td>
+                                            <td><?=$id+1?></td>
+                                            <td><?=$key['name']?><?php if ($defaultKeyId == $id) { echo ' [默认]'; } ?></td>
+                                            <td><?=$key['access_key']?></td>
+                                            <td><?=$key['secret_key']?></td>
                                             <td>
-                                                <a href="/index/<?=$key?>">修改</a>&nbsp;&nbsp;
-                                                <a href="/bucket/default/<?=$key?>">设置默认</a>&nbsp;&nbsp;
-                                                <a href="/bucket/del/<?=$key?>">删除</a>&nbsp;&nbsp;
+                                                <a href="/key/<?=$id?>">修改</a>&nbsp;&nbsp;
+                                                <a href="/key/do/default/<?=$id?>">设置默认</a>&nbsp;&nbsp;
+                                                <a href="/key/do/del/<?=$id?>">删除</a>&nbsp;&nbsp;
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -64,27 +66,30 @@
                 <!-- /.panel -->
             </div>
             <!-- /.col-lg-6 -->
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         添加/修改
                     </div>
                     <!-- /.panel-heading -->
                     <?php
-                        $key = fnGet($vars, 'key', -1);
-                        $bucket = getBuckets($key);
+                        $id = fnGet($vars, 'id', -1);
+                        $key = getKeys($id);
                     ?>
                     <div class="panel-body">
-                        <form role="form" method="POST" action="/bucket/add">
-                            <input type="hidden" name="key" value="<?=!is_null($bucket)?$key:-1?>" />
+                        <form role="form" method="POST" action="/key/do/add">
+                            <input type="hidden" name="id" value="<?=!is_null($key)?$id:-1?>" />
                             <div class="form-group">
-                                <label>仓库名</label>
-                                <input title="bucket name" class="form-control" type="text" name="bucketname" value="<?=fnGet($bucket, 'name', '')?>">
-                                <p class="help-block">填写七牛后台的 bucket name</p>
+                                <label>名称</label>
+                                <input title="bucket name" class="form-control" type="text" name="name" value="<?=fnGet($key, 'name', '')?>">
                             </div>
                             <div class="form-group">
-                                <label>仓库URL地址</label>
-                                <input title="bucket url" class="form-control" type="text" name="bucketurl" value="<?=fnGet($bucket, 'url', '')?>">
+                                <label>AccessKey</label>
+                                <input title="bucket name" class="form-control" type="text" name="access_key" value="<?=fnGet($key, 'access_key', '')?>">
+                            </div>
+                            <div class="form-group">
+                                <label>SecretKey</label>
+                                <input title="bucket url" class="form-control" type="text" name="secret_key" value="<?=fnGet($key, 'secret_key', '')?>">
                             </div>
                             <button type="submit" class="btn btn-default">提交</button>
                             <button type="reset" class="btn btn-default">重置</button>

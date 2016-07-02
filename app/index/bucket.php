@@ -33,5 +33,5 @@ if (cookie('default_bucket') == null && !empty($buckets)) {
     cookie('default_bucket', 0);
 }
 
-cookie('buckets', serialize($buckets));
+cookie('buckets', $buckets);
 redirect('/index');
