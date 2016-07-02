@@ -1,13 +1,40 @@
 <?php
 
 /**
+ * @param string $part
+ * @return mixed|string
+ */
+function getDefaultKey($part = null)
+{
+    $keyId = cookie('default_key');
+    $keys = getKeys();
+    if ('' === $key = fnGet($keys, $keyId, '')) {
+        return '';
+    }
+    return is_null($part) ? $key : (isset($key[$part]) ? $key[$part] : $key);
+}
+
+/**
+ * @param null $id
+ * @return array|mixed|null|string
+ */
+function getKeys($id = null)
+{
+    $keys = cookie('keys');
+    if (null === $keys) {
+        return [];
+    }
+    return is_null($id) ? $keys : (isset($keys[$id]) ? $keys[$id] : null);
+}
+
+/**
  * @param $host
  * @param $uri
  * @return string
  */
 function getRealUrl($host, $uri)
 {
-    return rtrim($host, '/').'/'.rtrim($uri, '/');
+    return rtrim($host, '/') . '/' . rtrim($uri, '/');
 }
 
 /**
@@ -34,7 +61,6 @@ function getBuckets($key = null)
     if (null === $buckets) {
         return [];
     }
-    $buckets = unserialize($buckets);
     return is_null($key) ? $buckets : (isset($buckets[$key]) ? $buckets[$key] : null);
 }
 
@@ -148,7 +174,7 @@ function redirect($url)
 function session($key, $value = '')
 {
     if ('' == $value) {
-        return fnGet($_SESSION,$key);
+        return fnGet($_SESSION, $key);
     }
     return $_SESSION[$key] = $value;
 }
@@ -162,12 +188,13 @@ function session($key, $value = '')
 function cookie($key, $value = '')
 {
     if ('' === $value) {
-        return fnGet($_COOKIE,$key);
+        $res = fnGet($_COOKIE, $key);
+        return is_null($res) ? null : unserialize($res);
     }
     if (null === $value) {
-        return setcookie($key, $value , time()-3600 , '/');
+        return setcookie($key, $value, time() - 3600, '/');
     }
-    return setcookie($key,$value, null, '/');
+    return setcookie($key, serialize($value), null, '/');
 }
 
 /**
@@ -178,6 +205,6 @@ function cookie($key, $value = '')
 function alert($msg, $redirect = null)
 {
     header("Content-type: text/html; charset=utf-8");
-    echo "<script>alert('{$msg}');" .(is_null($redirect) ? '' : "location.href='{$redirect}';"). "</script>";
+    echo "<script>alert('{$msg}');" . (is_null($redirect) ? '' : "location.href='{$redirect}';") . "</script>";
     exit();
 }
