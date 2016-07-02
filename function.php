@@ -18,7 +18,9 @@ function getDefaultBucket($part = 'name')
 {
     $bucketId = cookie('default_bucket');
     $buckets = getBuckets();
-    $bucket = $buckets[$bucketId];
+    if ('' === $bucket = fnGet($buckets, $bucketId, '')) {
+        return '';
+    }
     return isset($bucket[$part]) ? $bucket[$part] : $bucket;
 }
 
