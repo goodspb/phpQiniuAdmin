@@ -41,14 +41,14 @@ function getRealUrl($host, $uri)
  * @param string $part
  * @return mixed|string
  */
-function getDefaultBucket($part = 'name')
+function getDefaultBucket($part = null)
 {
     $bucketId = cookie('default_bucket');
     $buckets = getBuckets();
     if ('' === $bucket = fnGet($buckets, $bucketId, '')) {
         return '';
     }
-    return isset($bucket[$part]) ? $bucket[$part] : $bucket;
+    return is_null($part) ? $bucket : (isset($bucket[$part]) ? $bucket[$part] : $bucket);
 }
 
 /**
